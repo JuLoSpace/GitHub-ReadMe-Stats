@@ -8,7 +8,6 @@ const PORT = 8000;
 http.createServer((req, res) => {
     res.setHeader("Content-Type", "text/html; charset=utf-8;");
     res.writeHead(200);
-
     if(req.url != null) {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open('GET', 'https://github-contributions.now.sh/api/v1' + req.url, false);
@@ -37,24 +36,24 @@ http.createServer((req, res) => {
                 <br>
                 <br>
                 <script>
-                    var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                    var data = JSON.parse(JSON.stringify(${xmlHttp.responseText}));
+
+                    let MONTHS = [];
+                    let CONTRIBUITING = [];
+                    for(var row in data['contributions'].reverse()) {
+                        MONTHS.push(data['contributions'][row]['date']);
+                        CONTRIBUITING.push(data['contributions'][row]['count']);
+                    }
+
                     var config = {
                         type: 'line',
                         data: {
-                            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                            labels: MONTHS,
                             datasets: [{
                                 label: 'Commits',
                                 backgroundColor: window.chartColors.red,
                                 borderColor: window.chartColors.red,
-                                data: [
-                                    randomScalingFactor(),
-                                    randomScalingFactor(),
-                                    randomScalingFactor(),
-                                    randomScalingFactor(),
-                                    randomScalingFactor(),
-                                    randomScalingFactor(),
-                                    randomScalingFactor()
-                                ],
+                                data: CONTRIBUITING,
                                 fill: false,
                             }, {
                                 label: 'Pull Requests',
@@ -62,13 +61,11 @@ http.createServer((req, res) => {
                                 backgroundColor: window.chartColors.blue,
                                 borderColor: window.chartColors.blue,
                                 data: [
-                                    randomScalingFactor(),
-                                    randomScalingFactor(),
-                                    randomScalingFactor(),
-                                    randomScalingFactor(),
-                                    randomScalingFactor(),
-                                    randomScalingFactor(),
-                                    randomScalingFactor()
+                                    1,
+                                    2,
+                                    3,
+                                    4,
+                                    5
                                 ],
                             }]
                         },
