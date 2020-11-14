@@ -9,5 +9,8 @@
     "eslint": "^7.13.0",
     "eslint-plugin-node": "^11.1.0",
     "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
   }
 }
