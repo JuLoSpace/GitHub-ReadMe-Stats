@@ -40,9 +40,18 @@ http.createServer((req, res) => {
 
                     let MONTHS = [];
                     let CONTRIBUITING = [];
+                    var count = 0;
+                    var count_cont = 0;
                     for(var row in data['contributions'].reverse()) {
-                        MONTHS.push(data['contributions'][row]['date']);
-                        CONTRIBUITING.push(data['contributions'][row]['count']);
+                        if(count == 7) {
+                            MONTHS.push(data['contributions'][row]['date']);
+                            CONTRIBUITING.push(count_cont);
+                            count_cont = 0;
+                            count = 0;
+                        } else  {
+                            count += 1;
+                            count_cont += data['contributions'][row]['count'];
+                        }
                     }
 
                     var config = {
@@ -50,23 +59,11 @@ http.createServer((req, res) => {
                         data: {
                             labels: MONTHS,
                             datasets: [{
-                                label: 'Commits',
-                                backgroundColor: window.chartColors.red,
-                                borderColor: window.chartColors.red,
+                                label: 'CONTRIBUITING',
+                                backgroundColor: "#40c463",
+                                borderColor: "#40c463",
                                 data: CONTRIBUITING,
                                 fill: false,
-                            }, {
-                                label: 'Pull Requests',
-                                fill: false,
-                                backgroundColor: window.chartColors.blue,
-                                borderColor: window.chartColors.blue,
-                                data: [
-                                    1,
-                                    2,
-                                    3,
-                                    4,
-                                    5
-                                ],
                             }]
                         },
                         options: {
