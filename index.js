@@ -2,6 +2,7 @@ const { Console } = require('console');
 const http = require('http');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const { CanvasRenderService } = require('chartjs-node-canvas');
+var url = require("url");
 
 
 const PORT = 8000;
@@ -9,9 +10,13 @@ const PORT = 8000;
 http.createServer((req, res) => {
     res.setHeader("Content-Type", "image/jpg");
     res.writeHead(200);
+
+    var parsedUrl = url.parse(req.url, true);
+    var query = parsedUrl.query;
+
     if(req.url != null) {
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open('GET', 'https://github-contributions.now.sh/api/v1' + req.url, false);
+        xmlHttp.open('GET', 'https://github-contributions.now.sh/api/v1/' + query.name, false);
         xmlHttp.send(null);
 
         var data = JSON.parse(xmlHttp.responseText);
@@ -41,8 +46,8 @@ http.createServer((req, res) => {
                 labels: MONTHS,
                 datasets: [{
                     label: 'CONTRIBUITING',
-                    backgroundColor: "#40c463",
-                    borderColor: "#40c463",
+                    backgroundColor: query.theme == 'react' ? "#8b00ff" : "#40c463",
+                    borderColor: query.theme == 'react' ? "#002137" : "#40c463",
                     data: CONTRIBUITING,
                     fill: false,
                 }]
@@ -51,7 +56,7 @@ http.createServer((req, res) => {
                 responsive: true,
                 title: {
                     display: true,
-                    text: (req.url + "'s Stats").replace('/', '')
+                    text: (query.name + "'s Stats")
                 },
                 tooltips: {
                     mode: 'index',
