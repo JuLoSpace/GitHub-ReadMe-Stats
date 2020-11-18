@@ -35,8 +35,8 @@ http.createServer((req, res) => {
                 count_cont += data['contributions'][row]['count'];
             }
         }
-        const width = 550;
-        const height = 400;
+        const width = 1000;
+        const height = 600;
         const canvasRenderService = new CanvasRenderService(width, height, (ChartJS) => { });
         
 
