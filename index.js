@@ -5,7 +5,7 @@ const { CanvasRenderService } = require('chartjs-node-canvas');
 var url = require("url");
 
 
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 http.createServer((req, res) => {
     res.setHeader("Content-Type", "image/jpg");
