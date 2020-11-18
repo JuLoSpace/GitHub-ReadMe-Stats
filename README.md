@@ -14,3 +14,38 @@
       <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/SimplyProgger/GitHub-ReadMe-Stats?color=0088ff" />
     </a>
 </p>
+
+- [GitHub Stats Card](#github-stats-card)
+- [Themes](#themes)
+
+# GitHub Stats Card
+
+Copy and paste into your ReadMe. Simple!
+
+Change `?name=` in url to display correct content:
+
+```md
+[![SimplyProgger's Github Stats](https://enigmatic-harbor-42642.herokuapp.com/?name=SimplyProgger)](https://enigmatic-harbor-42642.herokuapp.com/?name=SimplyProgger)
+```
+
+
+# Themes
+
+Also you can change the color theme of your statistics!
+
+Change `theme=` in url:
+
+```md
+[![SimplyProgger's Github Stats](https://enigmatic-harbor-42642.herokuapp.com/?name=SimplyProgger&theme=react)](https://enigmatic-harbor-42642.herokuapp.com/?name=SimplyProgger&theme=react)
+```
+
+Example:
+
+<a href="https://enigmatic-harbor-42642.herokuapp.com/?name=SimplyProgger&theme=react">
+  <h3>Default Theme:</h3>
+  <img align="center" src="https://enigmatic-harbor-42642.herokuapp.com/?name=SimplyProgger" />
+</a>
+<a href="https://enigmatic-harbor-42642.herokuapp.com/?name=SimplyProgger&theme=react">
+ <h3>React Theme:</h3>
+ <img align="center" src="https://enigmatic-harbor-42642.herokuapp.com/?name=SimplyProgger&theme=react"/>
+</a>
