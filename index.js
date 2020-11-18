@@ -3,6 +3,7 @@ const http = require('http');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const { CanvasRenderService } = require('chartjs-node-canvas');
 var url = require("url");
+const { kStringMaxLength } = require('buffer');
 
 
 const PORT = process.env.PORT || 3000;
@@ -37,7 +38,21 @@ http.createServer((req, res) => {
         }
         const width = 1000;
         const height = 600;
-        const canvasRenderService = new CanvasRenderService(width, height, (ChartJS) => { });
+        const canvasRenderService = new CanvasRenderService(width, height, (ChartJS) => {
+            ChartJS.plugins.register({
+                beforeDraw: (chart, options) => {
+                    const ctx = chart.ctx;
+                    ctx.save();
+                    if(query.theme == 'react') {
+                        ctx.fillStyle = '#20232a';
+                    } else {
+                        ctx.fillStyle = '#ffffff';
+                    }
+                    ctx.fillRect(0, 0, width, height);
+                    ctx.restore();
+                  }
+            })
+        });
         
 
         var config = {
@@ -46,8 +61,8 @@ http.createServer((req, res) => {
                 labels: MONTHS,
                 datasets: [{
                     label: 'CONTRIBUITING',
-                    backgroundColor: query.theme == 'react' ? "#8b00ff" : "#40c463",
-                    borderColor: query.theme == 'react' ? "#002137" : "#40c463",
+                    backgroundColor: query.theme == 'react' ? "#61DAFB" : "#40c463",
+                    borderColor: query.theme == 'react' ? "#61DAFB" : "#40c463",
                     data: CONTRIBUITING,
                     fill: false,
                 }]
