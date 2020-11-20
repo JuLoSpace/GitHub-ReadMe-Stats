@@ -25,20 +25,26 @@ http.createServer((req, res) => {
         let CONTRIBUITING = [];
         var count = 0;
         var count_cont = 0;
-        for(var row in data['contributions'].reverse()) {
-            if(count == 7) {
+        var week_count = 0;
+        for(var row in data['contributions']) {
+            if(count == 30 && week_count != 12) {
+                console.log(week_count)
                 MONTHS.push(data['contributions'][row]['date']);
                 CONTRIBUITING.push(count_cont);
                 count_cont = 0;
+                week_count += 1;
                 count = 0;
             } else  {
                 count += 1;
                 count_cont += data['contributions'][row]['count'];
             }
         }
+        CONTRIBUITING = CONTRIBUITING.reverse();
+        MONTHS = MONTHS.reverse();
         const width = 1000;
         const height = 600;
         const canvasRenderService = new CanvasRenderService(width, height, (ChartJS) => {
+            ChartJS.defaults.global.defaultFontColor = '#fff';
             ChartJS.plugins.register({
                 beforeDraw: (chart, options) => {
                     const ctx = chart.ctx;
@@ -58,7 +64,7 @@ http.createServer((req, res) => {
         var config = {
             type: 'line',
             data: {
-                labels: MONTHS,
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                 datasets: [{
                     label: 'CONTRIBUITING',
                     backgroundColor: query.theme == 'react' ? "#61DAFB" : "#40c463",
